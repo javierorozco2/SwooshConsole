@@ -1,60 +1,38 @@
-import pygame
+import pygame, sys
+from moviepy.editor import VideoFileClip
 from pygame.locals import *
-import sys
 
-# -----------
-# Constantes
-# -----------
-
-FPS = 60
-SCREEN_WIDTH = 480
-SCREEN_HEIGHT = 320
-
-
-# ------------------------------
-# Funcion principal del juego
-# ------------------------------
+pygame.init()
 
 reloj = pygame.time.Clock()
-
-def main():
-    pygame.init()
-
-    # VENTANA Y TITULO:
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    pygame.display.set_caption("Swoosh Game")
-    background = pygame.Surface((480, 320))
-
-    #IMAGENES A SURFACE
-    #fondo1 = pygame.image.load("Intro1.png").convert()
-
-    #POSICION DE LOS SURFACES (IMAGENES)
-    #screen.blit(fondo1, (0, 0)) 
-    
-    #MOSTRAR IMAGENES EN PANTALLA 
-    #pygame.display.flip()
+x=480
+y=320
+fps=60
 
 
-    #VIDEO
-    movie = pygame.movie.Movie('Animacion.mp4')
-    screen = pygame.display.set_mode(movie.get_size())
-    movie_screen = pygame.Surface(movie.get_size()).convert()  #NO FUNCIONA 
-    movie.set_display(movie_screen)
-    movie.play()
-     
-    #MUSICA
+def musica():
     pygame.mixer.music.load("MusicaAmbiente1.mp3")
     pygame.mixer.music.play(1)
 
-    # BUCLE PRINCIPAL DEL JUEGO
+def video():
+    pygame.init()
+    pygame.display.set_caption("Swoosh Console")
+    video = VideoFileClip("Animacion.mp4")
+    video.preview()
+    main()
+def main():
+    pygame.init()
+
+    pygame.display.set_caption("Swoosh Console")
+    screen = pygame.display.set_mode((x,y))
+
+    
     while True:
-        # ENTRADAS BOTONES O TECLAS
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            if event.type == QUIT:
                 pygame.quit()
                 sys.exit(0)
-        reloj.tick(FPS)
-
-
-if __name__ == "__main__":
-    main()
+        pygame.display.update()
+        reloj.tick(fps)
+musica()
+video()
