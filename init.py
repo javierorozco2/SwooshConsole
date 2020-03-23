@@ -15,15 +15,15 @@ SCREEN_HEIGHT = 320
 # Funcion principal del juego
 # ------------------------------
 
+reloj = pygame.time.Clock()
+
 def main():
     pygame.init()
+
     # VENTANA Y TITULO:
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption("Swoosh Game")
     background = pygame.Surface((480, 320))
-    #RELOG
-    reloj = pygame.time.Clock()
-
 
     #IMAGENES A SURFACE
     #fondo1 = pygame.image.load("Intro1.png").convert()
@@ -36,14 +36,12 @@ def main():
 
 
     #VIDEO
-    movie = pygame.movie.Movie('Animacion.mpg')
+    movie = pygame.movie.Movie('Animacion.mp4')
     screen = pygame.display.set_mode(movie.get_size())
     movie_screen = pygame.Surface(movie.get_size()).convert()  #NO FUNCIONA 
     movie.set_display(movie_screen)
     movie.play()
      
-
-
     #MUSICA
     pygame.mixer.music.load("MusicaAmbiente1.mp3")
     pygame.mixer.music.play(1)
@@ -53,7 +51,9 @@ def main():
         # ENTRADAS BOTONES O TECLAS
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                sys.exit()
+                pygame.quit()
+                sys.exit(0)
+        reloj.tick(FPS)
 
 
 if __name__ == "__main__":
