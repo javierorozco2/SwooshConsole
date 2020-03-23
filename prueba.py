@@ -8,6 +8,12 @@ reloj = pygame.time.Clock()
 x=480
 y=320
 fps=60
+
+
+def musica():
+    pygame.mixer.music.load("MusicaAmbiente1.mp3")
+    pygame.mixer.music.play(1)
+
 def video():
     pygame.init()
     pygame.display.set_caption("Swoosh Console")
@@ -28,4 +34,5 @@ def main():
                 sys.exit(0)
         pygame.display.update()
         reloj.tick(fps)
+musica()
 video()
