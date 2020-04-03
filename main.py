@@ -23,14 +23,20 @@ def main():
     screen = pygame.display.set_mode((x,y))
     #----------------IMAGENES---------------
     fondo = pygame.image.load("images/Mainmenu.png")
-    botonjuegos1 = pygame.image.load("images/botonjuegos1.png")
+    botonjuegos1 = pygame.image.load("images/botonjuegos.png")
     botonjuegos2 = pygame.image.load("images/botonjuegos2.png")
-    botonajuste1 = pygame.image.load("images/botonajustes1.png")
+    botonajuste1 = pygame.image.load("images/botonajustes.png")
     botonajuste2 = pygame.image.load("images/botonajustes2.png")
+    botoninternet1 = pygame.image.load("images/botoninternet.png")
+    botoninternet2 = pygame.image.load("images/botoninternet2.png")
+    botonsalir1 = pygame.image.load("images/botonsalir.png")
+    botonsalir2 = pygame.image.load("images/botonsalir2.png")
     #------------CLASES Y VARIABLES---------
     cursor1 = cursor()    
     botonjuegos = Boton(botonjuegos1,botonjuegos2,0,190)
     botonajustes = Boton(botonajuste1,botonajuste2,0,250)
+    botoninternet = Boton(botoninternet1,botoninternet2,287,190)
+    botonsalir = Boton(botonsalir1,botonsalir2,292,250)
     while True:
         screen.blit(fondo,(0,0))
         for event in pygame.event.get():
@@ -40,6 +46,8 @@ def main():
         cursor1.update()
         botonjuegos.update(screen,cursor1)
         botonajustes.update(screen,cursor1)
+	botoninternet.update(screen,cursor1)
+        botonsalir.update(screen,cursor1)
         pygame.display.update()
         reloj.tick(fps)
 #-----------AQUI VAN TODAS LAS CLASES-------------------
