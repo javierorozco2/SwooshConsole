@@ -10,7 +10,7 @@ y=320
 fps=60
 #-------------------FUNCIONES--------------------
 def video():
-    os.system("@vlc movie/Intro.mp4")
+    os.system("vlc movie/Intro.mp4")
     main()
 def main():
     pygame.init()
