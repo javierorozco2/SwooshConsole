@@ -43,10 +43,13 @@ def main():
             if event.type == QUIT:
                 pygame.quit()
                 sys.exit(0)
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if cursor1.colliderect(botonsalir.rect):
+                    pygame.quit()
         cursor1.update()
         botonjuegos.update(screen,cursor1)
         botonajustes.update(screen,cursor1)
-	botoninternet.update(screen,cursor1)
+        botoninternet.update(screen,cursor1)
         botonsalir.update(screen,cursor1)
         pygame.display.update()
         reloj.tick(fps)
@@ -73,5 +76,5 @@ class Boton(pygame.sprite.Sprite):
         screen.blit(self.imagen_actual,self.rect)
 
 #-----------LLAMADO DE CLASE PRINCIPAL-----------
-#main()
-video()
+main()
+#video()
