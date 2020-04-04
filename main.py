@@ -10,10 +10,7 @@ y=320
 fps=60
 #-------------------FUNCIONES--------------------
 def video():
-    pygame.init()
-    pygame.display.set_caption("Swoosh Console")
-    video = VideoFileClip("movie/Intro.mp4")
-    video.preview()
+    os.system("@vlc movie/Intro.mp4")
     main()
 def main():
     pygame.init()
@@ -48,6 +45,8 @@ def main():
                     pygame.quit()
                 if cursor1.colliderect(botoninternet.rect):
                     os.system("google-chrome")
+                if cursor1.colliderect(botonajustes.rect):
+                    ajustes()
         cursor1.update()
         botonjuegos.update(screen,cursor1)
         botonajustes.update(screen,cursor1)
@@ -55,6 +54,27 @@ def main():
         botonsalir.update(screen,cursor1)
         pygame.display.update()
         reloj.tick(fps)
+
+def ajustes():
+    pygame.init()
+
+    #-----------------SCREEN----------------
+    pygame.display.set_caption("Swoosh Console")
+    screen = pygame.display.set_mode((x,y))
+    #----------------IMAGENES---------------
+    fondo = pygame.image.load("images/ajustes/ajustes.png")
+    #------------CLASES Y VARIABLES---------
+    cursor1 = cursor()
+    while True:
+        screen.blit(fondo,(0,0))
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit(0)
+        cursor1.update()
+        pygame.display.update()
+        reloj.tick(fps)
+
 #-----------AQUI VAN TODAS LAS CLASES-------------------
 class cursor(pygame.Rect):
     def __init__(self):
@@ -78,5 +98,5 @@ class Boton(pygame.sprite.Sprite):
         screen.blit(self.imagen_actual,self.rect)
 
 #-----------LLAMADO DE CLASE PRINCIPAL-----------
-main()
-#video()
+#main()
+video()
