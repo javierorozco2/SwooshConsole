@@ -1,4 +1,4 @@
-import pygame, sys
+import pygame, sys, os
 from moviepy.editor import VideoFileClip
 from pygame.locals import *
 
@@ -46,6 +46,8 @@ def main():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if cursor1.colliderect(botonsalir.rect):
                     pygame.quit()
+                if cursor1.colliderect(botoninternet.rect):
+                    os.system("google-chrome")
         cursor1.update()
         botonjuegos.update(screen,cursor1)
         botonajustes.update(screen,cursor1)
