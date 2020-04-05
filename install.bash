@@ -1,3 +1,4 @@
 #!/bin/bash
-sudo apt-get install vlc
+
+sudo apt install net-tools
 sudo apt-get install python-pygame
