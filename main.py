@@ -62,6 +62,7 @@ def ajustes():
     screen = pygame.display.set_mode((x,y))
     #----------------IMAGENES---------------
     fondo = pygame.image.load("images/ajustes/ajustes.png")
+    flecha = pygame.image.load("images/ajustes/flecha1.png")
     #------------CLASES Y VARIABLES---------
     cursor1 = cursor()
     seleccion1 = seleccion(40,85)
@@ -77,12 +78,15 @@ def ajustes():
                 pygame.quit()
                 sys.exit(0)
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_DOWN:
+                #-------------MOVIMIENTOS DEL CUADRO SELECCION----------
+                if event.key == pygame.K_DOWN and seleccion1.pFlecha==False:
                     seleccion1.ax+=1
-                if event.key == pygame.K_UP:
+                if event.key == pygame.K_UP and seleccion1.pFlecha==False:
                     seleccion1.ax-=1
+                #-----------------------SELECCIONAR----------------------
                 if event.key == pygame.K_RETURN:
                     seleccion1.opcion()
+                #------------------MOVIMIENTO DEL VOLUMEN----------------
                 if event.key == pygame.K_RIGHT and seleccion1.ax==0:
                     if tam<100:
                         tam+=10
@@ -91,6 +95,13 @@ def ajustes():
                     if tam>0:
                         tam-=10
                         #Falta agregar modificacion de volumen
+                #--------------------POSICION SALIR---------------------
+                if event.key == pygame.K_RIGHT:
+                    seleccion1.pFlecha=False
+                if event.key == pygame.K_LEFT and seleccion1.ax!=0:
+                    seleccion1.pFlecha=True
+        #---------CARGA DE IMAGENES Y OBJETOS-------------
+        screen.blit(flecha,(10,150))
         screen.blit(porcentajevol,(395,97))
         pygame.draw.rect(screen,(67,75,77),rfondo)
         pygame.draw.rect(screen,(255,255,255),r1)
@@ -127,6 +138,7 @@ class seleccion(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.imagen = pygame.image.load("images/ajustes/ajustesSelec.png")
         self.roja = pygame.image.load("images/ajustes/ajustesLroja.png")
+        self.flecha2 = pygame.image.load("images/ajustes/flecha2.png")
         self.rect = self.imagen.get_rect()
         self.rect.x = x
         self.rect.y = y
@@ -135,56 +147,65 @@ class seleccion(pygame.sprite.Sprite):
         self.introjaw=0
         self.control = y
         self.ax=0
+        self.pFlecha=True
 
     def acciones(self):
-        #-------Movimiento K_DOWN(abajo)--------
-        if (self.ax==1 and self.rect.y<=120):
-            self.rect.y+=5
-        if (self.ax==2 and self.rect.y<=170):
-            self.rect.y+=5
-        if (self.ax==3 and self.rect.y<=205):
-            self.rect.y+=5
-        if self.ax==4:
-            self.ax=0
-            self.rect.y= self.control
-        #-------Movimiento K_UP(arriba)--------
-        if (self.ax==2 and self.rect.y >170):
-            self.rect.y-=5
-        if (self.ax==1 and self.rect.y >125):
-            self.rect.y-=5
-        if (self.ax==0 and self.rect.y >self.control):
-            self.rect.y-=5
-        if (self.ax==-1):
-            self.ax=3
-            self.rect.y=205
-    def opcion(self):
-        #Opcion actualizar
-        if self.ax==3:
-            os.system("git pull")
-            pygame.quit()
-            os.system("python main.py")
-        #Opcion wifi
-        if self.ax==2:
-            self.introjaw+=1
-        #if self.introjaw==0:
-            #os.system("sudo ifconfig wlo1 up")
-        #else:
-            #os.system("sudo ifconfig wlo1 down")
-        #Opcion sonido
-        if self.ax==1:
-            self.introja+=1
+        if self.pFlecha==False:
+            #-------Movimiento K_DOWN(abajo)--------
+            if (self.ax==1 and self.rect.y<=120):
+                self.rect.y+=5
+            if (self.ax==2 and self.rect.y<=170):
+                self.rect.y+=5
+            if (self.ax==3 and self.rect.y<=205):
+                self.rect.y+=5
+            if self.ax==4:
+                self.ax=0
+                self.rect.y= self.control
+            #-------Movimiento K_UP(arriba)--------
+            if (self.ax==2 and self.rect.y >170):
+                self.rect.y-=5
+            if (self.ax==1 and self.rect.y >125):
+                self.rect.y-=5
+            if (self.ax==0 and self.rect.y >self.control):
+                self.rect.y-=5
+            if (self.ax==-1):
+                self.ax=3
+                self.rect.y=205
 
+    def opcion(self):
+        if self.pFlecha==False:
+            #Opcion actualizar
+            if self.ax==3:
+                os.system("git pull")
+                pygame.quit()
+                os.system("python main.py")
+            #Opcion wifi
+            if self.ax==2:
+                self.introjaw+=1
+            if self.introjaw==0:
+                os.system("ifconfig wlan0 up")
+            else:
+                os.system("ifconfig wlan0 down")
+            #Opcion sonido
+            if self.ax==1:
+                self.introja+=1
+        else:
+            main()
+        #Activacion de linea roja
         if self.introja>1 or self.introjaw>1:
             self.introja=0
             self.introjaw=0
                         
 
     def update(self,screen):
-        screen.blit(self.imagen,(self.rect.x,self.rect.y))
-        if self.introja==1:
-            screen.blit(self.roja,(390,135))      
-        if self.introjaw==1:
-            screen.blit(self.roja,(390,178))  
+        if self.pFlecha==True:
+            screen.blit(self.flecha2,(10,150))
+        else:
+            screen.blit(self.imagen,(self.rect.x,self.rect.y))
+            if self.introja==1:
+                screen.blit(self.roja,(390,135))      
+            if self.introjaw==1:
+                screen.blit(self.roja,(390,178))  
 
 #-----------LLAMADO DE CLASE PRINCIPAL-----------
 #main()
