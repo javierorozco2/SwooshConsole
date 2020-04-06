@@ -1,5 +1,6 @@
 import pygame, sys, os
 from pygame.locals import *
+import video
 
 pygame.init()
 
@@ -8,9 +9,43 @@ x=480
 y=320
 fps=60
 miFuentepeque = pygame.font.Font(None,33)
+
 #-------------------FUNCIONES--------------------
 def video():
-    main()
+        pygame.init()
+        pygame.display.set_caption("Swoosh Console")
+        screen = pygame.display.set_mode((480,320))
+        sonidofondo = pygame.mixer.music.load("movie/Intro.ogg")
+        pygame.mixer.music.play(1)
+        valor=1
+        while True:
+            if (valor<10):
+                palabra="movie/frames/scene0000"
+                palabra+=str(valor)
+                palabra+=".png"
+            if (valor<100 and valor>9):
+                palabra="movie/frames/scene000"
+                palabra+=str(valor)
+                palabra+=".png"
+            if (valor<100 and valor>9):
+                palabra="movie/frames/scene000"
+                palabra+=str(valor)
+                palabra+=".png"
+            if (valor<536 and valor>99):
+                palabra="movie/frames/scene00"
+                palabra+=str(valor)
+                palabra+=".png"
+            screen.blit(pygame.image.load(palabra),(0,0))
+            valor+=1
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    pygame.quit()
+                    sys.exit(0)
+            pygame.display.update()
+            reloj.tick(fps)
+            if valor==535:
+            	pygame.mixer.music.stop()
+                main()
 def main():
     pygame.init()
 
@@ -182,10 +217,10 @@ class seleccion(pygame.sprite.Sprite):
             #Opcion wifi
             if self.ax==2:
                 self.introjaw+=1
-            if self.introjaw==0:
-                os.system("ifconfig wlan0 up")
-            else:
-                os.system("ifconfig wlan0 down")
+                if self.introjaw==0:
+                    os.system("ifconfig wlan0 up")
+                else:
+                    os.system("ifconfig wlan0 down")
             #Opcion sonido
             if self.ax==1:
                 self.introja+=1
