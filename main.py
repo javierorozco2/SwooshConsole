@@ -1,9 +1,12 @@
 import pygame, sys, os
 from pygame.locals import *
 import video
+<<<<<<< HEAD
 from Tkinter import *
 from wifi import Cell
 from wireless import Wireless
+=======
+>>>>>>> 8005ed14eb0f47d1dfe209a0ac6cdc4e98142a1a
 
 pygame.init()
 
@@ -17,7 +20,11 @@ miFuentepeque = pygame.font.Font(None,33)
 def video():
         pygame.init()
         pygame.display.set_caption("Swoosh Console")
+<<<<<<< HEAD
         screen = pygame.display.set_mode((480,320), pygame.FULLSCREEN)
+=======
+        screen = pygame.display.set_mode((480,320))
+>>>>>>> 8005ed14eb0f47d1dfe209a0ac6cdc4e98142a1a
         sonidofondo = pygame.mixer.music.load("movie/Intro.ogg")
         pygame.mixer.music.play(1)
         valor=1
@@ -47,7 +54,11 @@ def video():
             pygame.display.update()
             reloj.tick(fps)
             if valor==535:
+<<<<<<< HEAD
                 pygame.mixer.music.stop()
+=======
+            	pygame.mixer.music.stop()
+>>>>>>> 8005ed14eb0f47d1dfe209a0ac6cdc4e98142a1a
                 main()
 def main():
     pygame.init()
@@ -225,6 +236,7 @@ class seleccion(pygame.sprite.Sprite):
              
             #Opcion wifi
             if self.ax==2:
+<<<<<<< HEAD
                 a = {}
                 i= 0
                 for i in range (0,6):
@@ -266,6 +278,13 @@ class seleccion(pygame.sprite.Sprite):
                 Button(root, text= a[5], command= lambda : ponerwifi(a[5])).pack()
                 root.mainloop()
                 
+=======
+                self.introjaw+=1
+                if self.introjaw==0:
+                    os.system("ifconfig wlan0 up")
+                else:
+                    os.system("ifconfig wlan0 down")
+>>>>>>> 8005ed14eb0f47d1dfe209a0ac6cdc4e98142a1a
             #Opcion sonido
             if self.ax==1:
                 self.introja+=1
