@@ -1,5 +1,9 @@
 import pygame, sys, os
 from pygame.locals import *
+import video
+from Tkinter import *
+from wifi import Cell
+from wireless import Wireless
 
 pygame.init()
 
@@ -8,15 +12,49 @@ x=480
 y=320
 fps=60
 miFuentepeque = pygame.font.Font(None,33)
+
 #-------------------FUNCIONES--------------------
 def video():
-    main()
+        pygame.init()
+        pygame.display.set_caption("Swoosh Console")
+        screen = pygame.display.set_mode((480,320), pygame.FULLSCREEN)
+        sonidofondo = pygame.mixer.music.load("movie/Intro.ogg")
+        pygame.mixer.music.play(1)
+        valor=1
+        while True:
+            if (valor<10):
+                palabra="movie/frames/scene0000"
+                palabra+=str(valor)
+                palabra+=".png"
+            if (valor<100 and valor>9):
+                palabra="movie/frames/scene000"
+                palabra+=str(valor)
+                palabra+=".png"
+            if (valor<100 and valor>9):
+                palabra="movie/frames/scene000"
+                palabra+=str(valor)
+                palabra+=".png"
+            if (valor<536 and valor>99):
+                palabra="movie/frames/scene00"
+                palabra+=str(valor)
+                palabra+=".png"
+            screen.blit(pygame.image.load(palabra),(0,0))
+            valor+=1
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    pygame.quit()
+                    sys.exit(0)
+            pygame.display.update()
+            reloj.tick(fps)
+            if valor==535:
+                pygame.mixer.music.stop()
+                main()
 def main():
     pygame.init()
 
     #-----------------SCREEN----------------
     pygame.display.set_caption("Swoosh Console")
-    screen = pygame.display.set_mode((x,y))
+    screen = pygame.display.set_mode((x,y), pygame.FULLSCREEN)
     #----------------IMAGENES---------------
     fondo = pygame.image.load("images/Mainmenu.png")
     botonjuegos1 = pygame.image.load("images/botonjuegos.png")
@@ -43,7 +81,9 @@ def main():
                 if cursor1.colliderect(botonsalir.rect):
                     pygame.quit()
                 if cursor1.colliderect(botoninternet.rect):
-                    os.system("google-chrome")
+                    os.system("chromium-browser %U")
+                    #teclado os.system("") 
+                     
                 if cursor1.colliderect(botonajustes.rect):
                     ajustes()
         cursor1.update()
@@ -59,7 +99,7 @@ def ajustes():
 
     #-----------------SCREEN----------------
     pygame.display.set_caption("Swoosh Console")
-    screen = pygame.display.set_mode((x,y))
+    screen = pygame.display.set_mode((x,y), pygame.FULLSCREEN)
     #----------------IMAGENES---------------
     fondo = pygame.image.load("images/ajustes/ajustes.png")
     flecha = pygame.image.load("images/ajustes/flecha1.png")
@@ -174,18 +214,58 @@ class seleccion(pygame.sprite.Sprite):
 
     def opcion(self):
         if self.pFlecha==False:
+
             #Opcion actualizar
             if self.ax==3:
                 os.system("git pull")
                 pygame.quit()
                 os.system("python main.py")
+                
+#////////////////////////////////////////////////////////////////////////////////////
+             
             #Opcion wifi
             if self.ax==2:
-                self.introjaw+=1
-            if self.introjaw==0:
-                os.system("ifconfig wlan0 up")
-            else:
-                os.system("ifconfig wlan0 down")
+                a = {}
+                i= 0
+                for i in range (0,6):
+                    a[i]= "-"
+
+                c = 0
+                for cell in Cell.all('wlan0'):
+                    a[c] = cell.ssid
+                    c += 1
+                c = 0
+                fin = len(a)
+
+                root = Tk()
+                root.config(bd=15)
+                root.title("WIFI")
+                root.geometry("350x230+60+30")
+                
+                def probarwifi(nssid,nclave):
+                    root.destroy()
+                    wireless = Wireless()
+                    wireless.interface()
+                    wireless.connect(ssid= str(nssid) , password= str(nclave))
+                    
+                def ponerwifi(nomb):
+                    root.iconify()
+                    os.system("toggle-matchbox-keyboard.sh %U")
+                    nuevavent= Toplevel(root)
+                    nuevavent.geometry("350x80+60+30")
+                    n1= StringVar()
+                    Label(nuevavent, text= "Clave " + nomb).pack()
+                    Entry(nuevavent, justify="center", textvariable=n1).pack()
+                    Button(nuevavent, text= "Prueba!", command= lambda : probarwifi(nomb, str(n1.get()) )).pack()
+
+                Button(root, text=  a[0], command= lambda :ponerwifi(a[0])).pack()
+                Button(root, text= a[1], command= lambda : ponerwifi(a[1])).pack()
+                Button(root, text= a[2], command= lambda : ponerwifi(a[2])).pack()
+                Button(root, text= a[3], command= lambda : ponerwifi(a[3])).pack()
+                Button(root, text= a[4], command= lambda : ponerwifi(a[4])).pack()
+                Button(root, text= a[5], command= lambda : ponerwifi(a[5])).pack()
+                root.mainloop()
+                
             #Opcion sonido
             if self.ax==1:
                 self.introja+=1
