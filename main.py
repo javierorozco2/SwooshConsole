@@ -4,6 +4,7 @@ import video
 from Tkinter import *
 from wifi import Cell
 from wireless import Wireless
+import ya.py
 
 pygame.init()
 
@@ -230,6 +231,7 @@ class seleccion(pygame.sprite.Sprite):
              
             #Opcion wifi
             if self.ax==2:
+                ya.wifi()
 
                 a = {}
                 i= 0
