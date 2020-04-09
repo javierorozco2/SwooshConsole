@@ -373,7 +373,7 @@ class selecwifi(pygame.sprite.Sprite):
 def wififinal(ssid):
     pygame.init()
     #---------------DISPLAY------------------
-    window=pygame.display.set_mode((480,320))
+    display =pygame.display.set_mode((480,320))
     pygame.display.set_caption("Swoosh")
     
     #--------------IMAGENES------------------
@@ -382,37 +382,32 @@ def wififinal(ssid):
     #------------.VARIABLES------------------------
     fuentewifi = pygame.font.Font(None,30)
     fuentessid = fuentewifi.render(ssid,0,(255,255,255))
+    tamletra = len(ssid)
+    print tamletra
     
     def consumer(text):
-        print(repr('Current text state: %s' % text))
-        fuente1 = fuentewifi.render(str(text),0,(255,255,255))
-        window.blit(fuente1,(140,60))
+    	display.blit(fondo,(0,0))
+    	pass
 
     while True:
-        window.blit(fondo,(0,0)) #fondo de teclado
+    	display.blit(fondo,(0,0))
         layout = VKeyboardLayout(VKeyboardLayout.AZERTY) #tipo de teclado
-        keyboard = VKeyboard(window, consumer, layout) #teclado
-        keyboard.enable() #teclado activado
+        keyboard = VKeyboard(display, consumer, layout) #teclado
         running = True
         while running:
-            window.blit(fuentessid,(200,15))
-            pygame.display.flip()
-            pygame.display.update()
-            for event in pygame.event.get():
-                
-                if event.type == QUIT:
-                    running = False
-                    pygame.quit()
-                    sys.exit()
-                keyboard.on_event(event)
-                
-            #pygame.display.update()
+        	keyboard.enable()
+        	display.blit(fuentessid,(235-(tamletra*5),15))
+        	fuente1 = fuentewifi.render(str(keyboard.buffer),0,(255,255,255))
+        	display.blit(fuente1,(140,60))
+        	for event in pygame.event.get():
+        		if event.type == QUIT:
+        			running = False
+        			pygame.quit()
+        			sys.exit()
+        		keyboard.on_event(event)
+        	pygame.display.update()
         
 #///////////////////////////////////////////////////////////////////////////////       
-    
-    
-    
-    
 
 #-----------LLAMADO DE CLASE PRINCIPAL-----------
 main()
