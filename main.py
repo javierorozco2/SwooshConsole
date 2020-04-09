@@ -3,13 +3,15 @@ from pygame.locals import *
 from Tkinter import *
 from wifi import Cell
 from wireless import Wireless
+from pygame_vkeyboard import *
+
 
 pygame.init()
 
 reloj = pygame.time.Clock()
 x=480
 y=320
-fps=60
+fps=300
 miFuentepeque = pygame.font.Font(None,33)
 
 #-------------------FUNCIONES--------------------
@@ -190,35 +192,28 @@ def wifi():
         screen.blit(fondo,(0,0))
         #-------REGISTRO DE EVENTOS-----
         for event in pygame.event.get():
+            
             if event.type==QUIT:
                 pygame.quit()
                 sys.exit(0)
             if event.type == pygame.KEYDOWN:
-            	#-------ABAJO Y ARRIBA-------
-            	if event.key == pygame.K_DOWN and seleccion.boolatras==False:
-            		seleccion.ax+=1
-            	if event.key == pygame.K_UP and seleccion.boolatras==False:
-            		seleccion.ax-=1
-            	#------ATRAS O NO ATRAS------
-            	if event.key == pygame.K_RIGHT:
-            		seleccion.boolatras=False
-            	if event.key == pygame.K_LEFT:
-            		seleccion.boolatras=True
-            	#---------SALIR Y SELECCIONAR---------
-            	if event.key == pygame.K_RETURN and seleccion.boolatras==True:
-            		ciclo = False
-            	if event.key == pygame.K_RETURN and seleccion.boolatras==False:
-            		ssid = str(a[seleccion.ax]) 
-            		'''
-            		La variable ssid guarda el nombre de la red, aqui pon
-            		el llamado de la nueva funcion donde se ingresara la 
-            		contraseña y le mandas el ssid. Si quieres comprobar 
-            		que guarda el ssid de la red usa
-            		print (ssid)
-
-            		'''
-
-            	
+                #-------ABAJO Y ARRIBA-------
+                if event.key == pygame.K_DOWN and seleccion.boolatras==False:
+                    seleccion.ax+=1
+                if event.key == pygame.K_UP and seleccion.boolatras==False:
+                    seleccion.ax-=1
+                #------ATRAS O NO ATRAS------
+                if event.key == pygame.K_RIGHT:
+                    seleccion.boolatras=False
+                if event.key == pygame.K_LEFT:
+                    seleccion.boolatras=True
+                #---------SALIR Y SELECCIONAR---------
+                if event.key == pygame.K_RETURN and seleccion.boolatras==True:
+                    ciclo = False
+                if event.key == pygame.K_RETURN and seleccion.boolatras==False:
+                    ssid = str(a[seleccion.ax]) 
+                    wififinal(ssid)
+                
         screen.blit(fuente1,(140,100))
         screen.blit(fuente2,(140,130))
         screen.blit(fuente3,(140,160))
@@ -299,56 +294,11 @@ class seleccion(pygame.sprite.Sprite):
                 os.system("git pull")
                 pygame.quit()
                 os.system("python main.py")
-                
-			#///////////////////////////////////////////////
          
             #Opcion wifi
             if self.ax==2:
                 wifi()
-                '''
-                a = {}
-                i= 0
-                for i in range (0,6):
-                    a[i]= "-"
 
-                c = 0
-                for cell in Cell.all('wlan0'):
-                    a[c] = cell.ssid
-                    c += 1
-                c = 0
-                fin = len(a)
-
-                root = Tk()
-                root.config(bd=15)
-                root.title("WIFI")
-                root.geometry("350x230+60+30")
-                
-                def probarwifi(nssid,nclave):
-                    root.destroy()
-                    wireless = Wireless()
-                    wireless.interface()
-                    wireless.connect(ssid= str(nssid) , password= str(nclave))
-                    
-                def ponerwifi(nomb):
-                    root.iconify()
-                    os.system("toggle-matchbox-keyboard.sh %U")
-                    nuevavent= Toplevel(root)
-                    nuevavent.geometry("350x80+60+30")
-                    n1= StringVar()
-                    Label(nuevavent, text= "Clave " + nomb).pack()
-                    Entry(nuevavent, justify="center", textvariable=n1).pack()
-                    Button(nuevavent, text= "Prueba!", command= lambda : probarwifi(nomb, str(n1.get()) )).pack()
-
-                Button(root, text=  a[0], command= lambda :ponerwifi(a[0])).pack()
-                Button(root, text= a[1], command= lambda : ponerwifi(a[1])).pack()
-                Button(root, text= a[2], command= lambda : ponerwifi(a[2])).pack()
-                Button(root, text= a[3], command= lambda : ponerwifi(a[3])).pack()
-                Button(root, text= a[4], command= lambda : ponerwifi(a[4])).pack()
-                Button(root, text= a[5], command= lambda : ponerwifi(a[5])).pack()
-                root.mainloop()
-
-				#///////////////////////////////////////
-                '''
             #Opcion sonido
             if self.ax==1:
                 self.introja+=1
@@ -371,52 +321,98 @@ class seleccion(pygame.sprite.Sprite):
                 screen.blit(self.roja,(390,178))  
 
 class selecwifi(pygame.sprite.Sprite):
-	def __init__(self,x,y):
-		pygame.sprite.Sprite.__init__(self)
-		self.imagen = pygame.image.load("images/ajustes/seleccionwifi.png")
-		self.atras = pygame.image.load("images/ajustes/flecha2.png")
-		self.rect = self.imagen.get_rect()
-		self.rect.x = x
-		self.rect.y = y
+    def __init__(self,x,y):
+        pygame.sprite.Sprite.__init__(self)
+        self.imagen = pygame.image.load("images/ajustes/seleccionwifi.png")
+        self.atras = pygame.image.load("images/ajustes/flecha2.png")
+        self.rect = self.imagen.get_rect()
+        self.rect.x = x
+        self.rect.y = y
 
-		self.control = y
-		self.ax=0
-		self.boolatras = True
-	def acciones(self):
-		if self.boolatras==False:
-			#----------ABAJO------------------
-			if self.ax==1 and self.rect.y<=125:
-				self.rect.y+=2
-			if self.ax==2 and self.rect.y<=154:
-				self.rect.y+=2
-			if self.ax==3 and self.rect.y<=185:
-				self.rect.y+=2
-			if self.ax==4 and self.rect.y<=214:
-				self.rect.y+=2
-			if self.ax==5 and self.rect.y<=244:
-				self.rect.y+=2
-			if self.ax==6:
-				self.ax=0
-				self.rect.y=self.control
-			#---------ARRIBA-------------------
-			if self.ax==4 and self.rect.y>216:
-				self.rect.y-=2
-			if self.ax==3 and self.rect.y>186:
-				self.rect.y-=2
-			if self.ax==2 and self.rect.y>156:
-				self.rect.y-=2
-			if self.ax==1 and self.rect.y>126:
-				self.rect.y-=2
-			if self.ax==0 and self.rect.y>96:
-				self.rect.y-=2
-			if self.ax<0:
-				self.ax=5
-				self.rect.y=244
-	def update(self,screen):
-		if self.boolatras==True:
-			screen.blit(self.atras,(10,150))
-		else:
-			screen.blit(self.imagen,(self.rect.x,self.rect.y))
+        self.control = y
+        self.ax=0
+        self.boolatras = True
+    def acciones(self):
+        if self.boolatras==False:
+            #----------ABAJO------------------
+            if self.ax==1 and self.rect.y<=125:
+                self.rect.y+=2
+            if self.ax==2 and self.rect.y<=154:
+                self.rect.y+=2
+            if self.ax==3 and self.rect.y<=185:
+                self.rect.y+=2
+            if self.ax==4 and self.rect.y<=214:
+                self.rect.y+=2
+            if self.ax==5 and self.rect.y<=244:
+                self.rect.y+=2
+            if self.ax==6:
+                self.ax=0
+                self.rect.y=self.control
+            #---------ARRIBA-------------------
+            if self.ax==4 and self.rect.y>216:
+                self.rect.y-=2
+            if self.ax==3 and self.rect.y>186:
+                self.rect.y-=2
+            if self.ax==2 and self.rect.y>156:
+                self.rect.y-=2
+            if self.ax==1 and self.rect.y>126:
+                self.rect.y-=2
+            if self.ax==0 and self.rect.y>96:
+                self.rect.y-=2
+            if self.ax<0:
+                self.ax=5
+                self.rect.y=244
+    def update(self,screen):
+        if self.boolatras==True:
+            screen.blit(self.atras,(10,150))
+        else:
+            screen.blit(self.imagen,(self.rect.x,self.rect.y))
+    
+#///////////////////////////////////////////////////////////////////////////////    
+            
+def wififinal(ssid):
+    pygame.init()
+    #---------------DISPLAY------------------
+    window=pygame.display.set_mode((480,320))
+    pygame.display.set_caption("Swoosh")
+    
+    #--------------IMAGENES------------------
+    fondo = pygame.image.load("images/ajustes/wifipass.png")
+
+    #------------.VARIABLES------------------------
+    fuentewifi = pygame.font.Font(None,30)
+    fuentessid = fuentewifi.render(ssid,0,(255,255,255))
+    
+    def consumer(text):
+        print(repr('Current text state: %s' % text))
+        fuente1 = fuentewifi.render(str(text),0,(255,255,255))
+        window.blit(fuente1,(140,60))
+
+    while True:
+        window.blit(fondo,(0,0)) #fondo de teclado
+        layout = VKeyboardLayout(VKeyboardLayout.AZERTY) #tipo de teclado
+        keyboard = VKeyboard(window, consumer, layout) #teclado
+        keyboard.enable() #teclado activado
+        running = True
+        while running:
+            window.blit(fuentessid,(200,15))
+            pygame.display.flip()
+            pygame.display.update()
+            for event in pygame.event.get():
+                
+                if event.type == QUIT:
+                    running = False
+                    pygame.quit()
+                    sys.exit()
+                keyboard.on_event(event)
+                
+            #pygame.display.update()
+        
+#///////////////////////////////////////////////////////////////////////////////       
+    
+    
+    
+    
 
 #-----------LLAMADO DE CLASE PRINCIPAL-----------
 main()
