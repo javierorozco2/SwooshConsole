@@ -225,6 +225,43 @@ def wifi():
         seleccion.update(screen)
         pygame.display.update()
 
+def wififinal(ssid):
+    pygame.init()
+    #---------------DISPLAY------------------
+    display =pygame.display.set_mode((480,320))
+    pygame.display.set_caption("Swoosh")
+    
+    #--------------IMAGENES------------------
+    fondo = pygame.image.load("images/ajustes/wifipass.png")
+
+    #------------.VARIABLES------------------------
+    fuentewifi = pygame.font.Font(None,30)
+    fuentessid = fuentewifi.render(ssid,0,(255,255,255))
+    tamletra = len(ssid)
+    print tamletra
+    
+    def consumer(text):
+    	display.blit(fondo,(0,0))
+    	pass
+
+    while True:
+    	display.blit(fondo,(0,0))
+        layout = VKeyboardLayout(VKeyboardLayout.AZERTY) #tipo de teclado
+        keyboard = VKeyboard(display, consumer, layout) #teclado
+        running = True
+        while running:
+        	keyboard.enable()
+        	display.blit(fuentessid,(235-(tamletra*5),15))
+        	fuente1 = fuentewifi.render(str(keyboard.buffer),0,(255,255,255))
+        	display.blit(fuente1,(140,60))
+        	for event in pygame.event.get():
+        		if event.type == QUIT:
+        			running = False
+        			pygame.quit()
+        			sys.exit()
+        		keyboard.on_event(event)
+        	pygame.display.update()
+
 #-----------AQUI VAN TODAS LAS CLASES-------------------
 class cursor(pygame.Rect):
     def __init__(self):
@@ -366,48 +403,7 @@ class selecwifi(pygame.sprite.Sprite):
         if self.boolatras==True:
             screen.blit(self.atras,(10,150))
         else:
-            screen.blit(self.imagen,(self.rect.x,self.rect.y))
-    
-#///////////////////////////////////////////////////////////////////////////////    
-            
-def wififinal(ssid):
-    pygame.init()
-    #---------------DISPLAY------------------
-    display =pygame.display.set_mode((480,320))
-    pygame.display.set_caption("Swoosh")
-    
-    #--------------IMAGENES------------------
-    fondo = pygame.image.load("images/ajustes/wifipass.png")
-
-    #------------.VARIABLES------------------------
-    fuentewifi = pygame.font.Font(None,30)
-    fuentessid = fuentewifi.render(ssid,0,(255,255,255))
-    tamletra = len(ssid)
-    print tamletra
-    
-    def consumer(text):
-    	display.blit(fondo,(0,0))
-    	pass
-
-    while True:
-    	display.blit(fondo,(0,0))
-        layout = VKeyboardLayout(VKeyboardLayout.AZERTY) #tipo de teclado
-        keyboard = VKeyboard(display, consumer, layout) #teclado
-        running = True
-        while running:
-        	keyboard.enable()
-        	display.blit(fuentessid,(235-(tamletra*5),15))
-        	fuente1 = fuentewifi.render(str(keyboard.buffer),0,(255,255,255))
-        	display.blit(fuente1,(140,60))
-        	for event in pygame.event.get():
-        		if event.type == QUIT:
-        			running = False
-        			pygame.quit()
-        			sys.exit()
-        		keyboard.on_event(event)
-        	pygame.display.update()
-        
-#///////////////////////////////////////////////////////////////////////////////       
+            screen.blit(self.imagen,(self.rect.x,self.rect.y))       
 
 #-----------LLAMADO DE CLASE PRINCIPAL-----------
 main()
