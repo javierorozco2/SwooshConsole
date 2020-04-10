@@ -11,7 +11,7 @@ pygame.init()
 reloj = pygame.time.Clock()
 x=480
 y=320
-fps=300
+fps=600
 miFuentepeque = pygame.font.Font(None,33)
 
 #-------------------FUNCIONES--------------------
@@ -90,9 +90,9 @@ def main():
                 if cursor1.colliderect(botoninternet.rect):
                     os.system("chromium-browser %U")
                     #teclado os.system("") 
-                     
                 if cursor1.colliderect(botonajustes.rect):
                     ajustes()
+                    
         cursor1.update()
         botonjuegos.update(screen,cursor1)
         botonajustes.update(screen,cursor1)
@@ -403,8 +403,92 @@ class selecwifi(pygame.sprite.Sprite):
         if self.boolatras==True:
             screen.blit(self.atras,(10,150))
         else:
+<<<<<<< HEAD
             screen.blit(self.imagen,(self.rect.x,self.rect.y))       
+=======
+            screen.blit(self.imagen,(self.rect.x,self.rect.y))
+    
+#///////////////////////////////////////////////////////////////////////////////    
+            
+def wififinal(ssid):
+    pygame.init()
+    #---------------DISPLAY------------------
+    display =pygame.display.set_mode((480,320))
+    pygame.display.set_caption("Swoosh")
+    
+    #--------------IMAGENES------------------
+    fondo = pygame.image.load("images/ajustes/wifipass.png")
+    botonsalir = pygame.image.load("images/ajustes/salir.png")
+    botonsalir2 = pygame.image.load("images/ajustes/salir2.png")
+    botonconectar = pygame.image.load("images/ajustes/conectar.png")
+    botonconectar2 = pygame.image.load("images/ajustes/conectar2.png")
 
-#-----------LLAMADO DE CLASE PRINCIPAL-----------
-main()
-#video()
+    #------------.VARIABLES------------------------
+    fuentewifi = pygame.font.Font(None,30)
+    fuentessid = fuentewifi.render(ssid,0,(255,255,255))
+    cursorw = cursor()    
+    botonsalirfin = botonsalir2
+    botonconectarfin = botonconectar2
+    tamletra = len(ssid)
+    print tamletra
+    marcador = True
+    
+    def consumer(text):
+        display.blit(fondo,(0,0))
+        pass
+    
+    ciclo = True
+
+    while ciclo == True:
+        display.blit(fondo,(0,0))
+        layout = VKeyboardLayout(VKeyboardLayout.AZERTY) #tipo de teclado
+        keyboard = VKeyboard(display, consumer, layout) #teclado
+        #keyboard.enable()
+        running = True
+        while running:
+            keyboard.enable()
+            display.blit(fuentessid,(235-(tamletra*5),15))
+            fuente1 = fuentewifi.render(str(keyboard.buffer),0,(255,255,255))
+            display.blit(fuente1,(140,60))
+            for event in pygame.event.get():
+                display.blit(botonsalirfin,(0,0))
+                display.blit(botonconectarfin,(0,0))
+                if event.type == pygame.KEYDOWN:
+                        
+              #---------------SELECCIONAR BOTONES-----------------
+                    if event.key == pygame.K_RIGHT:
+                        marcador = True
+                        botonconectarfin = botonconectar
+                        botonsalirfin = botonsalir2
+                        pygame.display.update()               
+                        
+                    if event.key == pygame.K_LEFT:
+                        marcador = False
+                        botonconectarfin = botonconectar2
+                        botonsalirfin = botonsalir
+                        pygame.display.update()
+                
+                    
+                    if event.key == pygame.K_RETURN and marcador == True:
+                        print("conectar")
+                        print(ssid, str(keyboard.buffer))
+                        wireless = Wireless()
+                        wireless.interface()
+                        wireless.connect(ssid= str(ssid) , password= str(keyboard.buffer))
+                        
+                    if event.key == pygame.K_RETURN and marcador == False:
+                        print("salir")
+                        running = False
+                        ciclo = False
+                        keyboard.disable()
+                       
+                keyboard.on_event(event)
+                pygame.display.update()
+                reloj.tick(fps)          
+                
+#///////////////////////////////////////////////////////////////////////////////       
+>>>>>>> refs/remotes/origin/master
+
+#-----------LLAMADO DE CLASE PRINCIPAL----------
+if __name__ == "__main__":
+    video()
