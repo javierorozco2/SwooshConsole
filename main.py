@@ -339,6 +339,7 @@ def wififinal(ssid):
 		screen.blit(botonconectarfin,(0,0))
 		pygame.display.update()
 		reloj.tick(fps)
+		
 def consumer(text):
 	pass
 
@@ -611,5 +612,5 @@ class presentar(pygame.sprite.Sprite):
 		elif ax==1:
 			screen.blit(self.imagen2,(self.rect.x,self.rect.y))
 #-----------LLAMADO DE CLASE PRINCIPAL----------
-main()
-#video()
+#main()
+video()
