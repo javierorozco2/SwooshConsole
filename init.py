@@ -41,7 +41,7 @@ def main():
     pygame.init()
     #pygame.mixer.music.set_volume(.25)
     pygame.display.set_caption("Plumber Jumper")
-    screen = pygame.display.set_mode((480,320)) 
+    screen = pygame.display.set_mode((480,320), FULLSCREEN) 
     pygame.display.set_icon(icon_surf)
     cursor1=cursor()
 
@@ -218,7 +218,7 @@ def menu2():
 
     pygame.init()
     pygame.display.set_caption("Plumber Jumper")
-    screen=pygame.display.set_mode((480,320))
+    screen=pygame.display.set_mode((480,320), FULLSCREEN)
 
     reloj=pygame.time.Clock()
 
@@ -254,7 +254,7 @@ def menu2():
 def pausa(nivel):
     pausado = True
     Nivel=nivel
-    screen = pygame.display.set_mode((480,320))
+    screen = pygame.display.set_mode((480,320), FULLSCREEN)
     if Nivel==1:
         fondo = pygame.image.load("imagenes/nivel1/nivel1.png")
     if Nivel==2:
@@ -307,7 +307,7 @@ def pausa(nivel):
 
 def perdiste(enjuego):
     enjuego=False
-    screen = pygame.display.set_mode((480,320))
+    screen = pygame.display.set_mode((480,320), FULLSCREEN)
     fondo = pygame.image.load("imagenes/perdiste/perdistelvl1.png")
 
     cursor1=cursor()
@@ -332,7 +332,7 @@ def perdiste(enjuego):
 
 def perdiste2(enjuego):
     enjuego=False
-    screen = pygame.display.set_mode((480,320))
+    screen = pygame.display.set_mode((480,320), FULLSCREEN)
     fondo = pygame.image.load("imagenes/perdiste/perdistelvl2.png")
 
     cursor1=cursor()
@@ -357,7 +357,7 @@ def perdiste2(enjuego):
 
 def perdiste3(enjuego):
     enjuego=False
-    screen = pygame.display.set_mode((480,320))
+    screen = pygame.display.set_mode((480,320), FULLSCREEN)
     fondo = pygame.image.load("imagenes/perdiste/perdistelvl3.png")
 
     cursor1=cursor()
@@ -382,7 +382,7 @@ def perdiste3(enjuego):
 
 def ganaste1(enjuego):
     enjuego=False
-    screen = pygame.display.set_mode((480,320))
+    screen = pygame.display.set_mode((480,320), FULLSCREEN)
     fondo = pygame.image.load("imagenes/nivel1/nivel1.png")
     letras = pygame.image.load("imagenes/menuwin/lvlcompletado.png")
 
@@ -426,7 +426,7 @@ def ganaste1(enjuego):
 
 def ganaste2(enjuego):
     enjuego=False
-    screen = pygame.display.set_mode((480,320))
+    screen = pygame.display.set_mode((480,320), FULLSCREEN)
     fondo = pygame.image.load("imagenes/nivel2/nivel2.png")
     letras = pygame.image.load("imagenes/menuwin/lvlcompletado.png")
 
@@ -470,7 +470,7 @@ def ganaste2(enjuego):
 
 def ganaste3(enjuego):
     enjuego=False
-    screen = pygame.display.set_mode((480,320))
+    screen = pygame.display.set_mode((480,320), FULLSCREEN)
     fondo = pygame.image.load("imagenes/nivel3/final.png")
 
     boton1 = pygame.image.load("imagenes/pausa/botoninicio.png")
@@ -513,7 +513,7 @@ def ganaste3(enjuego):
 def tutorial():
 
     pygame.init()
-    screen=pygame.display.set_mode((480,320))
+    screen=pygame.display.set_mode((480,320), FULLSCREEN)
     pygame.display.set_caption("Plumber Jumper: botones para jugar")
 
     fondo=pygame.image.load("imagenes/historias/tutorial.png")
@@ -559,7 +559,7 @@ def tutorial():
 def historia1():
 
     pygame.init()
-    screen=pygame.display.set_mode((480,320))
+    screen=pygame.display.set_mode((480,320), FULLSCREEN)
     pygame.display.set_caption("Plumber Jumper: botones para jugar")
 
     fondo=pygame.image.load("imagenes/historias/historia1inicio.png")
@@ -594,7 +594,7 @@ def historia1():
 def historia2():
 
     pygame.init()
-    screen=pygame.display.set_mode((480,320))
+    screen=pygame.display.set_mode((480,320), FULLSCREEN)
     pygame.display.set_caption("Plumber Jumper: botones para jugar")
 
     fondo=pygame.image.load("imagenes/historias/historia2segundonivel.png")
@@ -646,7 +646,8 @@ def historia2():
 def historia3():
 
     pygame.init()
-    screen=pygame.display.set_mode((480,320))
+    screen=pygame.display.set_mode((480,320), FULLSCREEN)
+  
     pygame.display.set_caption("Plumber Jumper: Historia")
 
     fondo=pygame.image.load("imagenes/historias/historia3tercernivel.png")
@@ -718,7 +719,8 @@ def nivel1():
     mensaje3= pygame.image.load("imagenes/nivel1/cierrallave3.png")
 
     #Pantalla
-    screen = pygame.display.set_mode((480,320))
+    screen=pygame.display.set_mode((480,320), FULLSCREEN)
+
     pygame.display.set_caption("Plumber Jumper: Nivel 1")
 
     #Personaje 
@@ -966,7 +968,7 @@ def nivel2():
     mensaje3=pygame.image.load("imagenes/nivel1/cierrallave3.png")
 
     #Pantalla
-    screen = pygame.display.set_mode((480,320))
+    screen = pygame.display.set_mode((480,320),FULLSCREEN)
     pygame.display.set_caption("Plumber Jumper: Nivel 1")
 
     #Personaje 
@@ -1236,7 +1238,7 @@ def nivel3():
     mensaje4=pygame.image.load("imagenes/nivel3/mensaje2.png")
 
     #------------------VENTANA-------------------
-    screen = pygame.display.set_mode((480,320))
+    screen = pygame.display.set_mode((480,320),FULLSCREEN)
     pygame.display.set_caption("Plumber Jumper: Nivel 1")
 
     #-----------------Personaje----------------- 
