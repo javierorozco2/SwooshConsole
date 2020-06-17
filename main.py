@@ -17,8 +17,8 @@ def video():
         pygame.init()
         pygame.display.set_caption("Swoosh Console")
         
-        screen = pygame.display.set_mode((480,320))
-        screen = pygame.display.set_mode((480,320))
+        screen = pygame.display.set_mode((480,320),FULLSCREEN)
+        screen = pygame.display.set_mode((480,320),FULLSCREEN)
 
         sonidofondo = pygame.mixer.music.load("movie/Intro.ogg")
         pygame.mixer.music.play(1)
@@ -59,7 +59,7 @@ def main():
 
     #-----------------SCREEN----------------
     pygame.display.set_caption("Swoosh Console")
-    screen = pygame.display.set_mode((x,y))
+    screen = pygame.display.set_mode((x,y),FULLSCREEN)
     #----------------IMAGENES---------------
     fondo = pygame.image.load("images/Mainmenu.png")
     botonjuegos1 = pygame.image.load("images/botonjuegos.png")
@@ -157,7 +157,7 @@ def ajustes():
 
     #-----------------SCREEN----------------
     pygame.display.set_caption("Swoosh Console")
-    screen = pygame.display.set_mode((x,y))
+    screen = pygame.display.set_mode((x,y),FULLSCREEN)
     #----------------IMAGENES---------------
     fondo = pygame.image.load("images/ajustes/ajustes.png")
     flecha = pygame.image.load("images/ajustes/flecha1.png")
@@ -213,7 +213,7 @@ def wifi():
 
     pygame.init()
     #---------------DISPLAY------------------
-    screen=pygame.display.set_mode((480,320))
+    screen=pygame.display.set_mode((480,320),FULLSCREEN)
     pygame.display.set_caption("Swoosh")
     #--------------IMAGENES------------------
     atras=pygame.image.load("images/ajustes/flecha1.png")
@@ -279,7 +279,7 @@ def wifi():
 def wififinal(ssid):
 	pygame.init()
 	#---------------DISPLAY------------------
-	screen =pygame.display.set_mode((480,320))
+	screen =pygame.display.set_mode((480,320),FULLSCREEN)
 	pygame.display.set_caption("Swoosh")
 	
 	#--------------IMAGENES------------------
