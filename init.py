@@ -90,7 +90,7 @@ def Ajustes():
     sonidono2=pygame.image.load("imagenes/menuopciones/sonidono2.png")
 
     pygame.display.set_caption("Ajustes")
-    screen = pygame.display.set_mode((480,320))
+    screen = pygame.display.set_mode((480,320),FULLSCREEN)
     reloj=pygame.time.Clock()
     cursor1=cursor()
     
