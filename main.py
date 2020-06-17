@@ -9,6 +9,7 @@ reloj = pygame.time.Clock()
 x=480
 y=320
 fps=600
+pygame.init()
 miFuentepeque = pygame.font.Font(None,33)
 
 #-------------------FUNCIONES--------------------
@@ -46,7 +47,7 @@ def video():
                     pygame.quit()
                     sys.exit(0)
             pygame.display.update()
-            reloj.tick(fps)
+            reloj.tick(30)
             if valor==535:
                 pygame.mixer.music.stop()
                 pygame.mixer.music.stop()
@@ -229,7 +230,7 @@ def wifi():
         for i in range(0,6):
             a[i]="--------------"
         c = 0
-        for cell in Cell.all('wlan0'):
+        for cell in Cell.all('wlp3s0'):
             a[c] = cell.ssid
             c += 1
         
@@ -550,10 +551,10 @@ class seleccionmj(pygame.sprite.Sprite):
 		self.niveles()
 	def opciones(self):
 		pass
-		'''
-		if self.boolplay==True:
-			self.nivel()
-		'''
+		
+		if self.boolplay==True and self.ax==0:
+			os.system("python2 init.py")
+		
 		if self.boolatras==True:
 			main()
 
